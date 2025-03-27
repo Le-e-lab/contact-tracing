@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>University Contact Tracing - Login</title>
+    <link rel="stylesheet" href="css/auth.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="university-logo">
+            <img src="assets/university-logo.png" alt="University Logo">
+            <h2>Contact Tracing System</h2>
+        </div>
+        
+        <div class="auth-tabs">
+            <button class="tab active" id="loginTab">Login</button>
+            <button class="tab" id="registerTab">Register</button>
+        </div>
+        
+        <!-- Login Form -->
+        <form id="loginForm" class="auth-form active">
+            <div class="form-group">
+                <label for="loginEmail">University Email</label>
+                <input type="email" id="loginEmail" placeholder="your.name@university.edu" required>
+                <span class="error-message">Must use your university email</span>
+            </div>
+            
+            <div class="form-group">
+                <label for="loginPassword">Password</label>
+                <input type="password" id="loginPassword" required>
+                <span class="error-message"></span>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Login</button>
+            
+            <div class="auth-footer">
+                <a href="#" class="forgot-password">Forgot password?</a>
+            </div>
+        </form>
+        
+        <!-- Registration Form -->
+        <form id="registerForm" class="auth-form">
+            <div class="form-group">
+                <label for="regEmail">University Email</label>
+                <input type="email" id="regEmail" placeholder="your.name@university.edu" required>
+                <span class="error-message">Must use your university email</span>
+            </div>
+            
+            <div class="form-group">
+                <label for="regPassword">Create Password</label>
+                <input type="password" id="regPassword" required>
+                <div class="password-strength">
+                    <div class="strength-meter"></div>
+                </div>
+                <span class="strength-text"></span>
+                <span class="error-message"></span>
+            </div>
+            
+            <div class="form-group">
+                <label for="regConfirmPassword">Confirm Password</label>
+                <input type="password" id="regConfirmPassword" required>
+                <span class="error-message"></span>
+            </div>
+            
+            <div class="form-group">
+                <label for="userType">Account Type</label>
+                <select id="userType" required>
+                    <option value="">Select account type</option>
+                    <option value="student">Student</option>
+                    <option value="admin">Administrator</option>
+                </select>
+                <span class="error-message"></span>
+            </div>
+            
+            <button type="submit" class="btn btn-primary">Register</button>
+        </form>
+    </div>
+
+    <script src="js/auth.js"></script>
+</body>
+</html>

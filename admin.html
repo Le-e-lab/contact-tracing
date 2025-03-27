@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard | University Contact Tracing</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/admin.css">
+    <link rel="stylesheet" href="css/dashboard.css">    
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="assets/logo.png" alt="University Logo" class="sidebar-logo">
+                <h2>Admin Portal</h2>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active"><a href="#dashboard"><i class="icon">📊</i> Dashboard</a></li>
+                    <li><a href="#cases"><i class="icon">📋</i> Case Management</a></li>
+                    <li><a href="#exposures"><i class="icon">⚠️</i> Exposure Reports</a></li>
+                    <li><a href="#locations"><i class="icon">🗺️</i> Location Data</a></li>
+                    <li><a href="#appointments"><i class="icon">📅</i> Appointments</a></li>
+                    <li><a href="#users"><i class="icon">👥</i> User Management</a></li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <img src="assets/admin-avatar.png" alt="Admin Avatar" class="user-avatar">
+                    <div class="user-info">
+                        <span class="user-name">Admin Name</span>
+                        <span class="user-email">admin@university.edu</span>
+                    </div>
+                </div>
+                <button id="logoutBtn" class="btn btn-logout">Logout</button>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="content-header">
+                <h1 id="pageTitle">Admin Dashboard</h1>
+                <div class="header-actions">
+                    <button id="generateReportBtn" class="btn btn-primary">
+                        <i class="icon">📈</i> Generate Report
+                    </button>
+                    <div class="data-update">
+                        <span>Last updated: <span id="lastUpdatedTime">Today, 11:30 AM</span></span>
+                        <button id="refreshDataBtn" class="btn btn-icon">
+                            <i class="icon">🔄</i>
+                        </button>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Dashboard Section -->
+            <section id="dashboard" class="content-section active">
+                <!-- ... existing dashboard content ... -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-icon danger">
+                            <i>🦠</i>
+                        </div>
+                        <div class="stat-value" id="activeCases">0</div>
+                        <div class="stat-label">Active Cases</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon warning">
+                            <i>⚠️</i>
+                        </div>
+                        <div class="stat-value" id="potentialExposures">0</div>
+                        <div class="stat-label">Potential Exposures</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon primary">
+                            <i>🏥</i>
+                        </div>
+                        <div class="stat-value" id="todaysAppointments">0</div>
+                        <div class="stat-label">Today's Appointments</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon secondary">
+                            <i>⏳</i>
+                        </div>
+                        <div class="stat-value" id="pendingAppointments">0</div>
+                        <div class="stat-label">Pending Appointments</div>
+                    </div>
+                </div>
+                
+                <div class="admin-grid">
+                    <div class="recent-cases card">
+                        <div class="card-header">
+                            <h3>Recent Positive Cases</h3>
+                            <button class="btn btn-sm btn-primary">View All</button>
+                        </div>
+                        <div class="card-body">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Name</th>
+                                        <th>Date</th>
+                                        <th>Exposures</th>
+                                        <th>Status</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="recentCasesTable">
+                                    <!-- Filled by JavaScript -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+                    <div class="heatmap-card card">
+                        <div class="card-header">
+                            <h3>High Risk Locations</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="heatmap-grid" id="heatmapGrid">
+                                <!-- Filled by JavaScript -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="appointments-card card">
+                    <div class="card-header">
+                        <h3>Recent Appointments</h3>
+                        <select id="appointmentStatusFilter">
+                            <option value="all">All Statuses</option>
+                            <option value="pending">Pending</option>
+                            <option value="confirmed">Confirmed</option>
+                            <option value="completed">Completed</option>
+                        </select>
+                    </div>
+                    <div class="card-body">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Student</th>
+                                    <th>Date/Time</th>
+                                    <th>Purpose</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminAppointmentsTable">
+                                <!-- Filled by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+            </section>
+            
+            <!-- Case Management Section -->
+            <section id="cases" class="content-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Case Management</h2>
+                    </div>
+                    <div class="card-body">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>Student</th>
+                                    <th>Date Reported</th>
+                                    <th>Symptoms</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="casesTable">
+                                <!-- Filled by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Exposure Reports Section -->
+            <section id="exposures" class="content-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Exposure Reports</h2>
+                    </div>
+                    <div class="card-body">
+                        <div id="exposureReports">
+                            <!-- Filled by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Location Data Section -->
+            <section id="locations" class="content-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Location Data</h2>
+                    </div>
+                    <div class="card-body">
+                        <div class="heatmap-grid" id="heatmapGrid">
+                            <!-- Filled by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Appointments Section -->
+            <section id="appointments" class="content-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Appointments</h2>
+                        <div class="date-filter">
+                            <select id="appointmentStatusFilter">
+                                <option value="all">All Statuses</option>
+                                <option value="pending">Pending</option>
+                                <option value="confirmed">Confirmed</option>
+                                <option value="completed">Completed</option>
+                                <option value="cancelled">Cancelled</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Student</th>
+                                    <th>Purpose</th>
+                                    <th>Date/Time</th>
+                                    <th>Status</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminAppointmentsTable">
+                                <!-- Filled by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- User Management Section -->
+            <section id="users" class="content-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>User Management</h2>
+                        <button id="createUserBtn" class="btn btn-primary">+ Create User</button>
+                    </div>
+                    <div class="card-body">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Role</th>
+                                    <th>Last Login</th>
+                                    <th>Actions</th>
+                                </tr>
+                            </thead>
+                            <tbody id="usersTable">
+                                <!-- Filled by JavaScript -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <!-- Detail Modal -->
+    <div class="modal-overlay" id="detailModal">
+        <div class="modal-content">
+            <h3 id="detailModalTitle">Details</h3>
+            <div class="modal-body" id="detailModalContent">
+                <!-- Content filled by JavaScript -->
+            </div>
+            <div class="modal-actions">
+                <button class="btn btn-primary" id="closeDetailModal">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/admin.js"></script>
+</body>
+</html>

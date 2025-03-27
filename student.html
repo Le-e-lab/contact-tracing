@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard | University Contact Tracing</title>
+    <link rel="stylesheet" href="css/dashboard.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="assets/logo.png" alt="University Logo" class="sidebar-logo">
+                <h2>Contact Tracing</h2>
+            </div>
+            
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active"><a href="#overview"><i class="icon">📊</i> Overview</a></li>
+                    <li><a href="#exposures"><i class="icon">⚠️</i> Exposure Alerts</a></li>
+                    <li><a href="#locations"><i class="icon">📍</i> My Locations</a></li>
+                    <li><a href="#appointments"><i class="icon">📅</i> Appointments</a></li>
+                    <li><a href="#symptoms"><i class="icon">❤️</i> Symptom Check</a></li>
+                </ul>
+            </nav>
+            
+            <div class="sidebar-footer">
+                <div class="user-profile">
+                    <img src="assets/default-avatar.png" alt="User Avatar" class="user-avatar">
+                    <div class="user-info">
+                        <span class="user-name">Student Name</span>
+                        <span class="user-email">student@university.edu</span>
+                    </div>
+                </div>
+                <div class="bluetooth-status" id="bluetoothStatus">
+                    <i class="icon">📶</i> <span>Bluetooth: Off</span>
+                </div>
+                <button id="logoutBtn" class="btn btn-logout">Logout</button>
+            </div>
+        </aside>
+        
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="content-header">
+                <h1 id="pageTitle">Dashboard Overview</h1>
+                <div class="header-actions">
+                    <button id="scanQRBtn" class="btn btn-primary">
+                        <i class="icon">🔲</i> Scan QR Code
+                    </button>
+                    <button id="enableBluetoothBtn" class="btn btn-secondary">
+                        <i class="icon">📶</i> Enable Bluetooth
+                    </button>
+                    <div class="status-indicator">
+                        <span>Last Sync: <span id="lastSync">Today, 10:45 AM</span></span>
+                    </div>
+                </div>
+            </header>
+            
+            <!-- Overview Section -->
+            <section id="overview" class="content-section active">
+                <div class="status-card green">
+                    <h3>Current Status</h3>
+                    <p class="status-value">No known exposures</p>
+                    <small class="last-checked">Last updated: Today, 10:45 AM</small>
+                </div>
+                
+                <div class="quick-actions">
+                    <button id="reportSymptomsBtn" class="quick-action-btn">
+                        <i class="icon">❤️</i>
+                        <span>Report Symptoms</span>
+                    </button>
+                    <button id="bookAppointmentBtn" class="quick-action-btn">
+                        <i class="icon">📅</i>
+                        <span>Book Appointment</span>
+                    </button>
+                    <button id="viewHistoryBtn" class="quick-action-btn">
+                        <i class="icon">🕒</i>
+                        <span>View History</span>
+                    </button>
+                </div>
+                
+                <div class="recent-locations card">
+                    <h3>Recent Locations</h3>
+                    <div id="locationTimeline" class="location-timeline">
+                        <!-- Filled by JavaScript -->
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Exposure Alerts Section -->
+            <section id="exposures" class="content-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Exposure Alerts</h2>
+                    </div>
+                    <div class="card-body">
+                        <div id="exposureAlertsContainer" class="exposure-list">
+                            <!-- Filled by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Locations Section -->
+            <section id="locations" class="content-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>My Locations</h2>
+                        <div class="date-filter">
+                            <select id="locationFilter">
+                                <option>Last 7 days</option>
+                                <option>Last 30 days</option>
+                                <option>All time</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="location-history">
+                            <!-- Filled by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Appointments Section -->
+            <section id="appointments" class="content-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Appointments</h2>
+                        <button id="newAppointmentBtn" class="btn btn-primary">+ New Appointment</button>
+                    </div>
+                    <div class="card-body">
+                        <div id="appointmentsTable" class="appointments-table">
+                            <!-- Filled by JavaScript -->
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Symptoms Section -->
+            <section id="symptoms" class="content-section">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>Symptom Check</h2>
+                    </div>
+                    <div class="card-body">
+                        <form id="symptomForm">
+                            <div class="form-group">
+                                <label>Select Symptoms</label>
+                                <div class="symptoms-checklist">
+                                    <label><input type="checkbox" name="fever"> Fever</label>
+                                    <label><input type="checkbox" name="cough"> Cough</label>
+                                    <label><input type="checkbox" name="breath"> Shortness of Breath</label>
+                                    <label><input type="checkbox" name="fatigue"> Fatigue</label>
+                                    <label><input type="checkbox" name="ache"> Muscle Aches</label>
+                                    <label><input type="checkbox" name="taste"> Loss of Taste/Smell</label>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>Additional Notes</label>
+                                <textarea name="notes" rows="3" placeholder="Describe your symptoms..."></textarea>
+                            </div>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary">Submit Report</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner"></div>
+        <p>Loading...</p>
+    </div>
+
+    <!-- QR Scanner Modal -->
+    <div class="modal-overlay" id="qrScannerModal">
+        <div class="modal-content">
+            <h3>Scan QR Code</h3>
+            <div class="scanner-container" id="scannerContainer">
+                <video id="qrVideo" width="100%" height="auto"></video>
+                <canvas id="qrCanvas" style="display: none;"></canvas>
+            </div>
+            <div class="scanner-result" id="scannerResult"></div>
+            <div class="modal-actions">
+                <button id="cancelScanBtn" class="btn btn-secondary">Cancel</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/student.js"></script>
+</body>
+</html>
